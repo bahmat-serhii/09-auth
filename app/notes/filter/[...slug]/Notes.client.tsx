@@ -11,7 +11,7 @@ import NoteList from "../../../../components/NoteList/NoteList";
 import Pagination from "../../../../components/Pagination/Pagination";
 import ErrorMessage from "./error";
 
-import { fetchNotes } from "../../../../lib/api";
+import { fetchNotes } from "../../../../lib/api/api";
 import type { Note, TagWithAll } from "../../../../types/note";
 
 interface NotesResponse {

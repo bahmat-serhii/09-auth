@@ -2,7 +2,7 @@
 
 import css from "./Header.module.css";
 import Link from "next/link";
-import { fetchNotes } from "@/lib/api";
+import { fetchNotes } from "@/lib/api/api";
 import { Tag } from "@/types/note";
 import TagsMenu from "../TagsMenu/TagsMenu";
 
