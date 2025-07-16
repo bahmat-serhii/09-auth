@@ -23,3 +23,7 @@ export async function updateUserProfile(data: UpdateUserPayload) {
   const res = await nextServer.patch("/users/me", data);
   return res.data;
 }
+
+export const logoutUser = async (): Promise<void> => {
+  await nextServer.post("/auth/logout");
+};
