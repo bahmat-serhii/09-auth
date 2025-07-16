@@ -2,13 +2,11 @@
 
 import css from "./Header.module.css";
 import Link from "next/link";
-import { fetchNotes } from "@/lib/api/api";
-import { Tag } from "@/types/note";
 import TagsMenu from "../TagsMenu/TagsMenu";
+import { Tag } from "@/types/note";
 
-const Header = async () => {
-  const { notes } = await fetchNotes({ page: 1 });
-  const tags: Tag[] = Array.from(new Set(notes.map((note) => note.tag)));
+const Header = () => {
+  const tagValues = Object.values(Tag); // ["Todo", "Work", "Personal", "Meeting", "Shopping"]
 
   return (
     <header className={css.header}>
@@ -16,7 +14,7 @@ const Header = async () => {
       <nav aria-label="Main Navigation">
         <ul className={css.navigation}>
           <li>
-            <TagsMenu categories={["All", ...tags]} />
+            <TagsMenu categories={["All", ...tagValues]} />
           </li>
           <li>
             <Link href="/" aria-label="Home">

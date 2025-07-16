@@ -22,3 +22,10 @@ export enum Tag {
 }
 
 export type TagWithAll = Tag | "All";
+
+export interface User {
+  id: number;
+  email: string;
+  username: string;
+  avatar: string;
+}
