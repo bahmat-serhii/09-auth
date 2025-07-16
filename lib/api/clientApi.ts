@@ -14,3 +14,12 @@ export async function loginUser(data: AuthPayload) {
   const res = await nextServer.post("/auth/login", data);
   return res.data;
 }
+
+interface UpdateUserPayload {
+  username: string;
+}
+
+export async function updateUserProfile(data: UpdateUserPayload) {
+  const res = await nextServer.patch("/users/me", data);
+  return res.data;
+}
