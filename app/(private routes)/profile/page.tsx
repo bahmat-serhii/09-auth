@@ -1,14 +1,20 @@
-"use client";
-
+import { Metadata } from "next";
+import { getServerMe } from "@/lib/api/serverApi";
+import css from "./ProfilePage.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import { useAuthStore } from "@/lib/store/authStore";
-import css from "./ProfilePage.module.css";
 
-export default function ProfilePage() {
-  const { user } = useAuthStore();
+export const metadata: Metadata = {
+  title: "Profile Page",
+  description: "User profile page in Notehub app",
+  openGraph: {
+    title: "Profile Page",
+    description: "User profile page in Notehub app",
+  },
+};
 
-  if (!user) return null;
+const Profile = async () => {
+  const user = await getServerMe();
 
   return (
     <main className={css.mainContent}>
@@ -19,17 +25,15 @@ export default function ProfilePage() {
             Edit Profile
           </Link>
         </div>
-
         <div className={css.avatarWrapper}>
           <Image
-            src={user.avatar}
+            src={user.avatar ?? "/default-avatar.png"}
             alt="User Avatar"
             width={120}
             height={120}
             className={css.avatar}
           />
         </div>
-
         <div className={css.profileInfo}>
           <p>Username: {user.username}</p>
           <p>Email: {user.email}</p>
@@ -37,4 +41,6 @@ export default function ProfilePage() {
       </div>
     </main>
   );
-}
+};
+
+export default Profile;

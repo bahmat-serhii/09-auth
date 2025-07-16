@@ -8,7 +8,11 @@ import { logoutUser } from "@/lib/api/clientApi";
 
 export default function AuthNavigation() {
   const router = useRouter();
-  const { user, isAuthenticated, clearIsAuthenticated } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const clearIsAuthenticated = useAuthStore(
+    (state) => state.clearIsAuthenticated,
+  );
 
   const handleLogout = async () => {
     try {
@@ -25,11 +29,7 @@ export default function AuthNavigation() {
       {isAuthenticated ? (
         <>
           <li className={css.navigationItem}>
-            <Link
-              href="/profile"
-              prefetch={false}
-              className={css.navigationLink}
-            >
+            <Link href="/profile" className={css.navigationLink}>
               Profile
             </Link>
           </li>
@@ -44,21 +44,13 @@ export default function AuthNavigation() {
       ) : (
         <>
           <li className={css.navigationItem}>
-            <Link
-              href="/sign-in"
-              prefetch={false}
-              className={css.navigationLink}
-            >
+            <Link href="/sign-in" className={css.navigationLink}>
               Login
             </Link>
           </li>
 
           <li className={css.navigationItem}>
-            <Link
-              href="/sign-up"
-              prefetch={false}
-              className={css.navigationLink}
-            >
+            <Link href="/sign-up" className={css.navigationLink}>
               Sign up
             </Link>
           </li>

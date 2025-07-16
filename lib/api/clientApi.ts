@@ -1,16 +1,16 @@
 import { nextServer } from "./api";
 
-interface AuthPayload {
+interface RegisterUserData {
   email: string;
   password: string;
 }
 
-export async function registerUser(data: AuthPayload) {
+export async function registerUser(data: RegisterUserData) {
   const res = await nextServer.post("/auth/register", data);
   return res.data;
 }
 
-export async function loginUser(data: AuthPayload) {
+export async function loginUser(data: RegisterUserData) {
   const res = await nextServer.post("/auth/login", data);
   return res.data;
 }

@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import { loginUser } from "@/lib/api/clientApi";
 import css from "./SignInPage.module.css";
 import { AxiosError } from "axios";
+import { useAuthStore } from "@/lib/store/authStore"; // додано
 
 export default function SignInPage() {
   const router = useRouter();
   const [error, setError] = useState("");
+  const setUser = useAuthStore((state) => state.setUser); // додано
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -17,7 +19,8 @@ export default function SignInPage() {
     const password = formData.get("password") as string;
 
     try {
-      await loginUser({ email, password });
+      const user = await loginUser({ email, password }); // отримаємо користувача
+      setUser(user); // записуємо у Zustand
       router.push("/profile");
     } catch (err: unknown) {
       if (
