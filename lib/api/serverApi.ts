@@ -17,7 +17,7 @@ interface FetchNotesResponse {
 
 const ALLOWED_TAGS: TagWithAll[] = ["All", ...(Object.values(Tag) as Tag[])];
 
-export const fetchNotes = async ({
+export const fetchServerNotes = async ({
   page,
   search,
   tag,
@@ -50,3 +50,14 @@ export const getServerMe = async (): Promise<User> => {
   });
   return data;
 };
+
+export async function fetchServerNoteById(id: string): Promise<Note> {
+  const cookieStore = await cookies();
+
+  const { data } = await nextServer.get<Note>(`/notes/${id}`, {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+  return data;
+}

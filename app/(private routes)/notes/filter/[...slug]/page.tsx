@@ -3,7 +3,7 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
-import { fetchNotes } from "../../../../lib/api/serverApi";
+import { fetchServerNotes } from "../../../../../lib/api/serverApi";
 import Notes from "./Notes.client";
 import { Tag, type TagWithAll } from "@/types/note";
 import type { Metadata } from "next";
@@ -64,7 +64,7 @@ export default async function NotesPage({ params }: NotesPageProps) {
     : "All";
   const tagParam = tag === "All" ? undefined : tag;
 
-  const initialData = await fetchNotes({
+  const initialData = await fetchServerNotes({
     page: initialPage,
     search: initialSearch,
     tag: tagParam,

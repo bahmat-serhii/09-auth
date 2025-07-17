@@ -1,6 +1,6 @@
 // app/@modal/(.)notes/[id]/page.tsx
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { fetchNoteById, getQueryClient } from "@/lib/api/api";
+import { fetchNoteById, getQueryClient } from "@/lib/api/clientApi";
 import NotePreview from "./NotePreview.client";
 
 type Props = {
@@ -8,10 +8,8 @@ type Props = {
 };
 
 export default async function NotePreviewModal({ params }: Props) {
-  const awaitedParams = await params;
-  const noteId = String(awaitedParams.id);
-
-  if (isNaN(Number(noteId))) return null;
+  const { id } = await params;
+  const noteId = id;
 
   const queryClient = getQueryClient();
 

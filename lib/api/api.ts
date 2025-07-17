@@ -1,6 +1,4 @@
 import axios from "axios";
-import type { Note, CreateNoteData, TagWithAll } from "../../types/note";
-import { QueryClient } from "@tanstack/react-query";
 
 // const BASE_URL = "https://notehub-api.goit.study/api";
 // const token = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
@@ -9,61 +7,3 @@ export const nextServer = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
   withCredentials: true,
 });
-
-interface FetchNotesParams {
-  page: number;
-  search?: string;
-  tag?: TagWithAll;
-}
-
-interface FetchNotesResponse {
-  notes: Note[];
-  totalPages: number;
-}
-
-export const fetchNotes = async ({
-  page,
-  search,
-  tag,
-}: FetchNotesParams): Promise<FetchNotesResponse> => {
-  const params: Record<string, string | number> = { page };
-
-  if (search && search.trim() !== "") {
-    params.search = search;
-  }
-
-  if (tag && tag !== "All") {
-    params.tag = tag;
-  }
-
-  const response = await nextServer.get<FetchNotesResponse>("/notes", {
-    params,
-  });
-  console.log("📤 fetchNotes params:", params);
-
-  return response.data;
-};
-
-export const createNote = async (data: CreateNoteData): Promise<Note> => {
-  const response = await nextServer.post<Note>("/notes", data);
-  return response.data;
-};
-
-export const deleteNote = async (id: string): Promise<Note> => {
-  const response = await nextServer.delete<Note>(`/notes/${id}`);
-  return response.data;
-};
-
-export const fetchNoteById = async (id: string): Promise<Note> => {
-  const response = await nextServer.get<Note>(`/notes/${id}`);
-  return response.data;
-};
-
-let queryClient: QueryClient | null = null;
-
-export function getQueryClient() {
-  if (!queryClient) {
-    queryClient = new QueryClient();
-  }
-  return queryClient;
-}

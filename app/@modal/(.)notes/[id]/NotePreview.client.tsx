@@ -2,13 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { fetchNoteById } from "@/lib/api/api";
+import { fetchNoteById } from "@/lib/api/clientApi";
 
 import css from "./NotePreview.module.css";
 import Modal from "@/components/Modal/Modal";
 
 type Props = {
-  noteId: string; // Ось так: простий рядок
+  noteId: string;
 };
 
 export default function NotePreview({ noteId }: Props) {
