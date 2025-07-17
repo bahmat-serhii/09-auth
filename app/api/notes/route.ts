@@ -7,7 +7,7 @@ const allowedTags = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
 
 export async function GET(request: NextRequest) {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
 
     const search = request.nextUrl.searchParams.get("search") ?? "";
     const page = Number(request.nextUrl.searchParams.get("page") ?? 1);
@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const body = await request.json();
 
     const { data } = await api.post("/notes", body, {

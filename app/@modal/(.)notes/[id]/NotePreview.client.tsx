@@ -8,11 +8,12 @@ import css from "./NotePreview.module.css";
 import Modal from "@/components/Modal/Modal";
 
 type Props = {
-  noteId: number;
+  noteId: string; // Ось так: простий рядок
 };
 
 export default function NotePreview({ noteId }: Props) {
   const router = useRouter();
+
   const closeModal = () => {
     router.back();
   };
@@ -24,7 +25,7 @@ export default function NotePreview({ noteId }: Props) {
   } = useQuery({
     queryKey: ["note", noteId],
     queryFn: () => fetchNoteById(noteId),
-    enabled: !isNaN(noteId),
+    enabled: Boolean(noteId),
     refetchOnMount: false,
   });
 
@@ -38,7 +39,7 @@ export default function NotePreview({ noteId }: Props) {
           <div className={css.header}>
             <h2>{note.title}</h2>
             <span className={css.tag}>{note.tag}</span>
-            <button className={css.backBtn} onClick={() => router.back()}>
+            <button className={css.backBtn} onClick={closeModal}>
               Back
             </button>
           </div>

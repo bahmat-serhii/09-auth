@@ -8,10 +8,10 @@ type Props = {
 };
 
 export default async function NotePreviewModal({ params }: Props) {
-  const { id } = await params;
-  const noteId = Number(id);
+  const awaitedParams = await params;
+  const noteId = String(awaitedParams.id);
 
-  if (isNaN(noteId)) return null;
+  if (isNaN(Number(noteId))) return null;
 
   const queryClient = getQueryClient();
 
