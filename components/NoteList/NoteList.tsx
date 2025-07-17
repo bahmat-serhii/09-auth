@@ -12,7 +12,7 @@ interface NoteListProps {
 
 const NoteList: React.FC<NoteListProps> = ({ notes }) => {
   const queryClient = useQueryClient();
-  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const { mutate } = useMutation({
     mutationFn: deleteNote,
