@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { Tag } from "../../types/note";
 import css from "./NoteForm.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createNote } from "../../lib/api/api";
+import { createNote } from "../../lib/api/clientApi";
 import { toast } from "react-hot-toast";
 import { useNoteStore } from "../../lib/store/noteStore";
 import { useRouter } from "next/navigation";
