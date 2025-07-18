@@ -1,6 +1,8 @@
 import { CreateNoteData, Note, TagWithAll } from "@/types/note";
 import { nextServer } from "./api";
 import { QueryClient } from "@tanstack/react-query";
+import { CheckSessionResponse } from "@/types/services";
+import { User } from "@/types/user";
 
 interface RegisterUserData {
   email: string;
@@ -86,4 +88,14 @@ export async function updateUserProfile(data: UpdateUserPayload) {
 
 export const logoutUser = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
+};
+
+export const checkSession = async () => {
+  const res = await nextServer.get<CheckSessionResponse>("/auth/session");
+  return res.data.success;
+};
+
+export const getMe = async () => {
+  const { data } = await nextServer.get<User>("/users/me");
+  return data;
 };

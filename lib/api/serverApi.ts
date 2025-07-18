@@ -3,6 +3,7 @@ import { nextServer } from "./api";
 import { cookies } from "next/headers";
 import { Note, TagWithAll, Tag } from "@/types/note";
 import { User } from "@/types/user";
+import { CheckSessionResponse } from "@/types/services";
 
 interface FetchNotesParams {
   page: number;
@@ -61,3 +62,13 @@ export async function fetchServerNoteById(id: string): Promise<Note> {
   });
   return data;
 }
+
+export const checkServerSession = async () => {
+  const cookieStore = await cookies();
+  const res = await nextServer.get<CheckSessionResponse>("/auth/session", {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+  return res;
+};
